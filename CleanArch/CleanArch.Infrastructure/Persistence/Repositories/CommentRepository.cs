@@ -1,4 +1,5 @@
 ﻿using CleanArch.Core.DTOs;
+using CleanArch.Core.Enums;
 using CleanArch.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,39 +30,65 @@ namespace CleanArch.Infrastructure.Persistence.Repositories
             return commentsDto;
         }
 
-        public Task<GetCommentDto> GetCommentByIdAsync(int commentId)
+        public async Task<GetCommentDto> GetCommentByIdAsync(int commentId)
         {
-            throw new NotImplementedException();
+            var comment = await _commentDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+            
+            // TODO: Remove this when we have a real database
+            if (comment == null)
+            {
+                return new GetCommentDto()
+                {
+                    Id = commentId,
+                    UserId = 1,
+                    BlogPostId = 1,
+                    DateCreated = DateTime.Now,
+                    Description = "This is a comment",
+                    Status = ApprovalStatusEnum.Submitted
+                };
+            }
+
+            var commentsDto = new GetCommentDto()
+            {
+                Id = comment.Id,
+                UserId = comment.UserId,
+                BlogPostId = comment.BlogPostId,
+                DateCreated = comment.DateCreated,
+                Description = comment.Description,
+                Status = comment.Status
+            };
+
+            return commentsDto;
         }
 
         public Task SubmitCommentAsync(SubmitCommentDto submitCommentDto)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task ProcessCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task ApproveCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task RejectCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task PublishCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task BanUser(int userId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }

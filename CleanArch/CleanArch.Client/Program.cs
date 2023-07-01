@@ -7,7 +7,8 @@ var host = new HostBuilder()
     {
         sc.AddCommentDbContext()
             .AddRepositories()
-            .AddServices();
+            .AddServices()
+            .AddMediator();
     })
     .Build();
 

@@ -1,5 +1,4 @@
-﻿using CleanArch.Application.Services;
-using CleanArch.Core.Repositories;
+﻿using CleanArch.Core.Repositories;
 using CleanArch.Core.Services;
 using CleanArch.Infrastructure.CloudServices;
 using CleanArch.Infrastructure.Persistence;
@@ -26,7 +25,14 @@ namespace CleanArch.Client.Extensions
         public static IServiceCollection AddServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<IContentModerationService, ContentModerationService>();
-            serviceCollection.AddScoped<ICommentService, CommentService>();
+            return serviceCollection;
+        }
+
+        public static IServiceCollection AddMediator(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddMediatR(cfg => {
+                cfg.RegisterServicesFromAssembly(typeof(Application.ViewModels.GetCommentViewModel).Assembly);
+            });
             return serviceCollection;
         }
     }
