@@ -29,39 +29,54 @@ namespace CleanArch.Infrastructure.Persistence.Repositories
             return commentsDto;
         }
 
-        public Task<GetCommentDto> GetCommentByIdAsync(int commentId)
+        public async Task<GetCommentDto> GetCommentByIdAsync(int commentId)
         {
-            throw new NotImplementedException();
+            var comment = await _commentDbContext.Comments.FirstOrDefaultAsync(c => c.Id == commentId);
+
+            if (comment == null)
+            {
+                return new GetCommentDto();
+            }
+
+            return new GetCommentDto()
+            {
+                Id = comment.Id,
+                UserId = comment.UserId,
+                BlogPostId = comment.BlogPostId,
+                DateCreated = comment.DateCreated,
+                Description = comment.Description,
+                Status = comment.Status
+            };
         }
 
         public Task SubmitCommentAsync(SubmitCommentDto submitCommentDto)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task ProcessCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task ApproveCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task RejectCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task PublishCommentAsync(int commentId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task BanUser(int userId)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }

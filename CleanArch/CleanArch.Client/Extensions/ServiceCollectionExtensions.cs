@@ -1,10 +1,5 @@
-﻿using CleanArch.Application.Services;
-using CleanArch.Core.Repositories;
-using CleanArch.Core.Services;
-using CleanArch.Infrastructure.CloudServices;
-using CleanArch.Infrastructure.Persistence;
-using CleanArch.Infrastructure.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using CleanArch.Application;
+using CleanArch.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CleanArch.Client.Extensions
@@ -13,20 +8,20 @@ namespace CleanArch.Client.Extensions
     {
         public static IServiceCollection AddCommentDbContext(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddDbContext<CommentDbContext>(options => options.UseInMemoryDatabase("CommentDatabase"));
+            serviceCollection.AddInfraCommentDbContext();
             return serviceCollection;
         }
 
         public static IServiceCollection AddRepositories(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped<ICommentRepository, CommentRepository>();
+            serviceCollection.AddInfraRepositories();
             return serviceCollection;
         }
 
         public static IServiceCollection AddServices(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<IContentModerationService, ContentModerationService>();
-            serviceCollection.AddScoped<ICommentService, CommentService>();
+            serviceCollection.AddInfraServices();
+            serviceCollection.AddApplicationServices();
             return serviceCollection;
         }
     }

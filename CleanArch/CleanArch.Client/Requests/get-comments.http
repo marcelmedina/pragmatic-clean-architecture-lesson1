@@ -1,0 +1,2 @@
+@host=localhost:7000
+GET http://{{host}}/api/GetComments

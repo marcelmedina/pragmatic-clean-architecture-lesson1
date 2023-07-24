@@ -24,7 +24,7 @@ namespace CleanArch.Core.Entities
 
         public void Process()
         {
-            if (Status == ApprovalStatusEnum.Approved)
+            if (Status == ApprovalStatusEnum.Submitted)
             {
                 Status = ApprovalStatusEnum.InProcess;
             }

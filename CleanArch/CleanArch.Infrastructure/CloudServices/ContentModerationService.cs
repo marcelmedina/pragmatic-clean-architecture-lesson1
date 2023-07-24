@@ -6,7 +6,7 @@ namespace CleanArch.Infrastructure.CloudServices
     {
         public Task<bool> HasProfanity(string description)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(false);
         }
     }
 }
